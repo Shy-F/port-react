@@ -3,7 +3,7 @@ import { capitalizeFirstLetter } from '../../utils/helpers';
 
 function Nav(props) {
   const {
-    categories = [],
+    categories = [], 
     setCurrentCategory,
     contactSelected,
     currentCategory,
@@ -11,7 +11,7 @@ function Nav(props) {
   } = props;
 
   useEffect(() => {
-    document.title = capitalizeFirstLetter(currentCategory.name);
+    document.title = capitalizeFirstLetter(currentCategory.name); 
   }, [currentCategory]);
 
   return (
