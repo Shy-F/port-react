@@ -1,17 +1,60 @@
-import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect } from 'react';
+import { capitalizeFirstLetter } from '../../utils/helpers';
 
+function Nav(props) {
+  const {
+    categories = [],
+    setCurrentCategory,
+    contactSelected,
+    currentCategory,
+    setContactSelected,
+  } = props;
 
-function App() {
+  useEffect(() => {
+    document.title = capitalizeFirstLetter(currentCategory.name);
+  }, [currentCategory]);
+
   return (
-    <div>
-      <Header />
-      <Footer/>
-    </div>
-  );
+    <header className="flex-row px-1">
+      <h2>
+        <a href='/'>
+          Shybreasia Fleetwood
+        </a>
+      </h2>
+      <nav>
+        <ul className="flex-row">
+          <li className="mx-2">
+            <a href="#about" onClick={() => setContactSelected(false)}>
+              About me
+            </a>
+          </li>
+          <li>
+                        <span onClick={() => setContactSelected(true)}>
+                            Contact</span>
+                    </li>
+                    
+                    {categories.map((category) => (
+
+                    <li 
+                        className={`mx-1 ${
+                            currentCategory.name === category.name && !contactSelected && `navActive`
+                            }`}
+                        key={category.name}
+                    >
+                        <span
+                            onClick={() => {
+                            setCurrentCategory(category);
+                            setContactSelected(false);
+                            }}
+                        >
+                            {capitalizeFirstLetter(category.name)}
+                        </span>
+                    </li>
+                    ))}
+                </ul>
+            </nav>
+        </header>
+    );
 }
 
-export default App;
+export default Nav;
